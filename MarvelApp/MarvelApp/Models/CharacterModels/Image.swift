@@ -1,13 +1,12 @@
 //
-//  Url.swift
+//  Image.swift
 //  MarvelApp
 //
 //  Created by Brooke Knowles on 27/06/22.
 //
-
 import Foundation
 
-struct Url: Codable {
-    var type: String?
-    var url: String?
+struct Image: Codable {
+    var path: String?
+    var ext: String?
 }
