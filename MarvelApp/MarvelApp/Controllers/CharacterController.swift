@@ -20,29 +20,39 @@ public class CharacterController {
         guard let url = URL(string: "https://gateway.marvel.com/v1/public/characters?ts=\(ts)&limit=\(limit)&offset=\(offset)&apikey=\(publicKey)&hash=\(hash)") else{
             return
         }
-
+        
+        // might need to change guard code for URL to below if getCharacters needs to return something
+//        let url = URL(string: "https://gateway.marvel.com/v1/public/characters?ts=\(ts)&limit=\(limit)&offset=\(offset)&apikey=\(publicKey)&hash=\(hash)")! as URL
+        
         let task = URLSession.shared.dataTask(with: url){
             data, response, error in
             
             let decoder = JSONDecoder()
 
-            if let data = data{
-                do{
+            if let data = data {
+                do {
                     let tasks = try decoder.decode(CharacterDataWrapper.self, from: data)
                     let results = tasks.data?.results
                     
                     for i in results ?? [] {
-                        print(i.name as Any)
+                        print(i as Any)
                     }
 
-                    
-                }catch{
+                } catch{
                     print(error)
                 }
             }
         }
+        
         task.resume()
-
+    }
+    
+    func cleanData(currentChar:Character) -> Character {
+        // get rid of irrelevant info like the "Optional()"
+        // e.g. id: Optional(1011334), name: Optional("3-D Man"), description: Optional("")
+        // becomes id: 1011334, name: "3-D Man", description: ""
+        
+        return currentChar
     }
 
 }
