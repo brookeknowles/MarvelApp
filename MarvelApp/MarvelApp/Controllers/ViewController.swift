@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         
         // create instance of CharacterController so can get data from API
         let controller = CharacterController()
-        controller.getCharacters()
+        controller.getListOfCharacters()
     }
 
 }
